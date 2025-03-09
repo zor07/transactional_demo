@@ -1,8 +1,7 @@
 package com.zor07.transactional_demo.controller;
 
-import com.zor07.transactional_demo.service.propagation.proxy.ProxyDemoTransactionService;
-import com.zor07.transactional_demo.service.propagation.proxy.ProxyDemoTransactionServiceImpl;
-import com.zor07.transactional_demo.service.propagation.proxy.TransactionalProxyHandler;
+import com.zor07.transactional_demo.service.proxy.ProxyDemoTransactionService;
+import com.zor07.transactional_demo.service.proxy.TransactionalProxyHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

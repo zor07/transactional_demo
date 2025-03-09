@@ -1,4 +1,4 @@
-package com.zor07.transactional_demo.service.propagation.proxy;
+package com.zor07.transactional_demo.service.proxy;
 
 import com.zor07.transactional_demo.entity.TransactionLog;
 import com.zor07.transactional_demo.entity.User;

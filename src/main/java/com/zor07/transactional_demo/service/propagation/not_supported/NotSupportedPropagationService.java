@@ -1,4 +1,4 @@
-package com.zor07.transactional_demo.service.propagation.propagation.requires_new;
+package com.zor07.transactional_demo.service.propagation.not_supported;
 
 import com.zor07.transactional_demo.entity.User;
 import com.zor07.transactional_demo.repository.UserRepository;
@@ -8,21 +8,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 
 @Service
-public class RequiresNewPropagationService {
+public class NotSupportedPropagationService {
 
     private final UserRepository userRepository;
-    private final RequiresNewTransactionLogService transactionService;
+    private final NotSupportedTransactionLogService transactionService;
 
-    public RequiresNewPropagationService(UserRepository userRepository, RequiresNewTransactionLogService transactionService) {
+    public NotSupportedPropagationService(UserRepository userRepository, NotSupportedTransactionLogService transactionService) {
         this.userRepository = userRepository;
         this.transactionService = transactionService;
     }
 
-    /**
-     * Метод processTransaction создает одну транзакцию,
-     * а метод logTransaction создает новую (отдельную) транзакцию.
-     * Если processTransaction завершится с ошибкой, logTransaction НЕ откатится.
-     */
     @Transactional
     public void processTransaction(Long userId, BigDecimal amount) {
         User user = userRepository.findById(userId)
@@ -31,10 +26,5 @@ public class RequiresNewPropagationService {
         userRepository.save(user);
 
         transactionService.logTransaction(user, amount);
-
-        throw new RuntimeException("Transaction rollback simulation");
     }
 }
-
-
-

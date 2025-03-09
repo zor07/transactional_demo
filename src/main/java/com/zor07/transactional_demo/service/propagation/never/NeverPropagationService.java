@@ -1,4 +1,4 @@
-package com.zor07.transactional_demo.service.propagation.propagation.never;
+package com.zor07.transactional_demo.service.propagation.never;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

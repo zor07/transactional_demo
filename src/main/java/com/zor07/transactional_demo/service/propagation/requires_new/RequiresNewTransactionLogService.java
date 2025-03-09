@@ -1,4 +1,4 @@
-package com.zor07.transactional_demo.service.propagation.propagation.nested;
+package com.zor07.transactional_demo.service.propagation.requires_new;
 
 import com.zor07.transactional_demo.entity.TransactionLog;
 import com.zor07.transactional_demo.entity.User;
@@ -10,17 +10,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 
 @Service
-public class NestedTransactionLogService {
+public class RequiresNewTransactionLogService {
 
     private final TransactionRepository transactionRepository;
 
-    public NestedTransactionLogService(TransactionRepository transactionRepository) {
+    public RequiresNewTransactionLogService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
 
-    @Transactional(propagation = Propagation.NESTED)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void logTransaction(User user, BigDecimal amount) {
         transactionRepository.save(new TransactionLog(user, amount));
-        throw new RuntimeException("Simulated nested transaction failure");
     }
 }

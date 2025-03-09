@@ -1,4 +1,4 @@
-package com.zor07.transactional_demo.service.propagation.propagation.not_supported;
+package com.zor07.transactional_demo.service.propagation.not_supported;
 
 import com.zor07.transactional_demo.entity.TransactionLog;
 import com.zor07.transactional_demo.entity.User;

@@ -1,4 +1,4 @@
-package com.zor07.transactional_demo.service.propagation.propagation.mandatory;
+package com.zor07.transactional_demo.service.propagation.mandatory;
 
 import com.zor07.transactional_demo.entity.TransactionLog;
 import com.zor07.transactional_demo.entity.User;

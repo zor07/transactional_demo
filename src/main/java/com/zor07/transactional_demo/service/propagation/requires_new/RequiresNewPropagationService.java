@@ -1,4 +1,4 @@
-package com.zor07.transactional_demo.service.propagation.propagation.nested;
+package com.zor07.transactional_demo.service.propagation.requires_new;
 
 import com.zor07.transactional_demo.entity.User;
 import com.zor07.transactional_demo.repository.UserRepository;
@@ -8,20 +8,20 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 
 @Service
-public class NestedPropagationService {
+public class RequiresNewPropagationService {
 
     private final UserRepository userRepository;
-    private final NestedTransactionLogService transactionService;
+    private final RequiresNewTransactionLogService transactionService;
 
-    public NestedPropagationService(UserRepository userRepository, NestedTransactionLogService transactionService) {
+    public RequiresNewPropagationService(UserRepository userRepository, RequiresNewTransactionLogService transactionService) {
         this.userRepository = userRepository;
         this.transactionService = transactionService;
     }
 
     /**
-     * Внешний метод выполняется в основной транзакции.
-     * Логирование транзакции выполняется во вложенной.
-     * Ошибка в logTransaction НЕ откатит изменения баланса.
+     * Метод processTransaction создает одну транзакцию,
+     * а метод logTransaction создает новую (отдельную) транзакцию.
+     * Если processTransaction завершится с ошибкой, logTransaction НЕ откатится.
      */
     @Transactional
     public void processTransaction(Long userId, BigDecimal amount) {
@@ -31,6 +31,10 @@ public class NestedPropagationService {
         userRepository.save(user);
 
         transactionService.logTransaction(user, amount);
+
+        throw new RuntimeException("Transaction rollback simulation");
     }
 }
+
+
 

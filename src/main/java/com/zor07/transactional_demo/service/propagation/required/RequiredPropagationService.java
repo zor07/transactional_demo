@@ -1,4 +1,4 @@
-package com.zor07.transactional_demo.service.propagation.propagation.required;
+package com.zor07.transactional_demo.service.propagation.required;
 
 import com.zor07.transactional_demo.entity.TransactionLog;
 import com.zor07.transactional_demo.repository.TransactionRepository;

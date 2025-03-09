@@ -1,4 +1,4 @@
-package com.zor07.transactional_demo.service.propagation.propagation.not_supported;
+package com.zor07.transactional_demo.service.propagation.nested;
 
 import com.zor07.transactional_demo.entity.User;
 import com.zor07.transactional_demo.repository.UserRepository;
@@ -8,16 +8,21 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 
 @Service
-public class NotSupportedPropagationService {
+public class NestedPropagationService {
 
     private final UserRepository userRepository;
-    private final NotSupportedTransactionLogService transactionService;
+    private final NestedTransactionLogService transactionService;
 
-    public NotSupportedPropagationService(UserRepository userRepository, NotSupportedTransactionLogService transactionService) {
+    public NestedPropagationService(UserRepository userRepository, NestedTransactionLogService transactionService) {
         this.userRepository = userRepository;
         this.transactionService = transactionService;
     }
 
+    /**
+     * Внешний метод выполняется в основной транзакции.
+     * Логирование транзакции выполняется во вложенной.
+     * Ошибка в logTransaction НЕ откатит изменения баланса.
+     */
     @Transactional
     public void processTransaction(Long userId, BigDecimal amount) {
         User user = userRepository.findById(userId)
@@ -28,3 +33,4 @@ public class NotSupportedPropagationService {
         transactionService.logTransaction(user, amount);
     }
 }
+

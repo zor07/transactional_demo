@@ -1,13 +1,13 @@
 package com.zor07.transactional_demo.controller;
 
 import com.zor07.transactional_demo.entity.TransactionLog;
-import com.zor07.transactional_demo.service.propagation.propagation.mandatory.MandatoryPropagationService;
-import com.zor07.transactional_demo.service.propagation.propagation.nested.NestedPropagationService;
-import com.zor07.transactional_demo.service.propagation.propagation.never.NeverPropagationService;
-import com.zor07.transactional_demo.service.propagation.propagation.not_supported.NotSupportedPropagationService;
-import com.zor07.transactional_demo.service.propagation.propagation.required.RequiredPropagationService;
-import com.zor07.transactional_demo.service.propagation.propagation.requires_new.RequiresNewPropagationService;
-import com.zor07.transactional_demo.service.propagation.propagation.supports.SupportsPropagationService;
+import com.zor07.transactional_demo.service.propagation.mandatory.MandatoryPropagationService;
+import com.zor07.transactional_demo.service.propagation.nested.NestedPropagationService;
+import com.zor07.transactional_demo.service.propagation.never.NeverPropagationService;
+import com.zor07.transactional_demo.service.propagation.not_supported.NotSupportedPropagationService;
+import com.zor07.transactional_demo.service.propagation.required.RequiredPropagationService;
+import com.zor07.transactional_demo.service.propagation.requires_new.RequiresNewPropagationService;
+import com.zor07.transactional_demo.service.propagation.supports.SupportsPropagationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
