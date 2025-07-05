@@ -24,13 +24,13 @@ public class NestedPropagationService {
      * Ошибка в logTransaction НЕ откатит изменения баланса.
      */
     @Transactional
-    public void processTransaction(Long userId, BigDecimal amount) {
+    public void processTransaction(Long userId, BigDecimal amount, boolean nestedShouldFail) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         user.setBalance(user.getBalance().add(amount));
         userRepository.save(user);
 
-        transactionService.logTransaction(user, amount);
+        transactionService.logTransaction(user, amount, nestedShouldFail);
     }
 }
 

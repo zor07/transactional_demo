@@ -19,8 +19,10 @@ public class NestedTransactionLogService {
     }
 
     @Transactional(propagation = Propagation.NESTED)
-    public void logTransaction(User user, BigDecimal amount) {
+    public void logTransaction(User user, BigDecimal amount, boolean shouldFail) {
         transactionRepository.save(new TransactionLog(user, amount));
-        throw new RuntimeException("Simulated nested transaction failure");
+        if (shouldFail) {
+            throw new RuntimeException("Simulated nested transaction failure");
+        }
     }
 }
