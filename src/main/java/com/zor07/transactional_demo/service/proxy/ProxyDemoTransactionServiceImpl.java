@@ -2,20 +2,23 @@ package com.zor07.transactional_demo.service.proxy;
 
 import com.zor07.transactional_demo.entity.TransactionLog;
 import com.zor07.transactional_demo.entity.User;
-import com.zor07.transactional_demo.repository.TransactionRepository;
+import com.zor07.transactional_demo.repository.TransactionLogRepository;
 import com.zor07.transactional_demo.repository.UserRepository;
-import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 
-@Service
 public class ProxyDemoTransactionServiceImpl implements ProxyDemoTransactionService {
-    private final UserRepository userRepository;
-    private final TransactionRepository transactionLogRepository;
 
-    public ProxyDemoTransactionServiceImpl(UserRepository userRepository, TransactionRepository transactionRepository) {
+    private static final Logger log = LoggerFactory.getLogger(ProxyDemoTransactionServiceImpl.class);
+
+    private final UserRepository userRepository;
+    private final TransactionLogRepository transactionLogRepository;
+
+    public ProxyDemoTransactionServiceImpl(UserRepository userRepository, TransactionLogRepository transactionLogRepository) {
         this.userRepository = userRepository;
-        this.transactionLogRepository = transactionRepository;
+        this.transactionLogRepository = transactionLogRepository;
     }
 
     @Override
@@ -25,12 +28,12 @@ public class ProxyDemoTransactionServiceImpl implements ProxyDemoTransactionServ
                 .orElseThrow(() -> new IllegalArgumentException("Пользователь не найден!"));
         user.setBalance(user.getBalance().add(amount));
         userRepository.save(user);
-        System.out.println("✅ Баланс пользователя обновлён: " + user.getBalance());
+        log.info("✅ Баланс пользователя обновлён: {}", user.getBalance());
 
         // 2. Записываем лог транзакции
-        TransactionLog log = new TransactionLog(user, amount);
-        transactionLogRepository.save(log);
-        System.out.println("📝 Лог транзакции записан.");
+        TransactionLog transactionLog = new TransactionLog(user, amount);
+        transactionLogRepository.save(transactionLog);
+        log.info("📝 Лог транзакции записан.");
 
         // 3. Эмулируем ошибку
         if (throwError) {

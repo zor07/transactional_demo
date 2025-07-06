@@ -1,4 +1,4 @@
-package com.zor07.transactional_demo.controller;
+package com.zor07.transactional_demo.controller.propagation;
 
 import com.zor07.transactional_demo.service.propagation.not_supported.NotSupportedPropagationService;
 import io.swagger.v3.oas.annotations.Operation;

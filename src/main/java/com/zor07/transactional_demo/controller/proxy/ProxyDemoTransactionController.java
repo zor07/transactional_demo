@@ -1,11 +1,9 @@
-package com.zor07.transactional_demo.controller;
+package com.zor07.transactional_demo.controller.proxy;
 
 import com.zor07.transactional_demo.service.proxy.ProxyDemoTransactionService;
-import com.zor07.transactional_demo.service.proxy.TransactionalProxyHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -15,15 +13,12 @@ import java.math.BigDecimal;
 @RequestMapping("/proxy-demo-transactions")
 public class ProxyDemoTransactionController {
 
-    private final ProxyDemoTransactionService transactionServiceProxy;
+    private final ProxyDemoTransactionService proxyDemoTransactionService;
 
-    public ProxyDemoTransactionController(ProxyDemoTransactionService transactionService,
-                                          PlatformTransactionManager transactionManager) {
-        this.transactionServiceProxy = TransactionalProxyHandler.createProxy(
-                transactionService,
-                ProxyDemoTransactionService.class,
-                transactionManager
-        );
+
+
+    public ProxyDemoTransactionController(ProxyDemoTransactionService proxyDemoTransactionService) {
+        this.proxyDemoTransactionService = proxyDemoTransactionService;
     }
 
     @Operation(summary = "Выполнить транзакцию через прокси", description = "Обновляет баланс пользователя и добавляет лог транзакции. Может сгенерировать исключение.")
@@ -33,6 +28,6 @@ public class ProxyDemoTransactionController {
             @Parameter(description = "Сумма транзакции") @RequestParam BigDecimal amount,
             @Parameter(description = "Генерировать ошибку для демонстрации отката")
             @RequestParam(required = false, defaultValue = "false") boolean throwError) {
-        transactionServiceProxy.processTransaction(userId, amount, throwError);
+        proxyDemoTransactionService.processTransaction(userId, amount, throwError);
     }
 }

@@ -24,7 +24,7 @@ public class SwaggerConfig {
                         .license(new License().name("Apache 2.0").url("https://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
                         .description("Дополнительная документация")
-                        .url("https://spring.io/projects/spring-framework"));
+                        .url("https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/annotations.html"));
     }
 
 }
