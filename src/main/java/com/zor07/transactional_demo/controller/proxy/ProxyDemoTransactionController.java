@@ -52,7 +52,7 @@ public class ProxyDemoTransactionController {
             @Parameter(description = "ID пользователя") @PathVariable Long userId,
             @Parameter(description = "Сумма транзакции") @RequestParam BigDecimal amount,
             @Parameter(description = "Генерировать ошибку для демонстрации отката")
-            @RequestParam(required = false, defaultValue = "false") boolean throwError) {
-        proxyDemoTransactionService.processTransaction(userId, amount, throwError);
+            @RequestParam(required = false, defaultValue = "false") boolean shouldThrowException) {
+        proxyDemoTransactionService.processTransaction(userId, amount, shouldThrowException);
     }
 }

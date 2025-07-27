@@ -22,7 +22,7 @@ public class ProxyDemoTransactionServiceImpl implements ProxyDemoTransactionServ
     }
 
     @Override
-    public void processTransaction(Long userId, BigDecimal amount, boolean throwError) {
+    public void processTransaction(Long userId, BigDecimal amount, boolean shouldThrowException) {
         // 1. Обновляем баланс пользователя
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Пользователь не найден!"));
@@ -30,14 +30,14 @@ public class ProxyDemoTransactionServiceImpl implements ProxyDemoTransactionServ
         userRepository.save(user);
         log.info("✅ Баланс пользователя обновлён: {}", user.getBalance());
 
-        // 2. Записываем лог транзакции
+        // 2. Эмулируем ошибку
+        if (shouldThrowException) {
+            throw new RuntimeException("❌ Ошибка! Должен произойти откат.");
+        }
+
+        // 3. Записываем лог транзакции
         TransactionLog transactionLog = new TransactionLog(user, amount);
         transactionLogRepository.save(transactionLog);
         log.info("📝 Лог транзакции записан.");
-
-        // 3. Эмулируем ошибку
-        if (throwError) {
-            throw new RuntimeException("❌ Ошибка! Должен произойти откат.");
-        }
     }
 }
