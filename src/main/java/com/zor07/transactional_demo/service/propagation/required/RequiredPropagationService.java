@@ -24,7 +24,7 @@ public class RequiredPropagationService {
      * Если логика внутри метода приведет к исключению, откатится весь процесс.
      */
     @Transactional
-    public void processTransaction(Long userId, BigDecimal amount) {
+    public void processTransaction(Long userId, BigDecimal amount, boolean shouldThrowException) {
         var user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         user.setBalance(user.getBalance().add(amount));
         userRepository.save(user);
@@ -32,7 +32,7 @@ public class RequiredPropagationService {
         transactionLogRepository.save(new TransactionLog(user, amount));
 
         // Искусственно выбрасываем ошибку для демонстрации отката
-        if (amount.compareTo(new BigDecimal(1000)) > 0) throw new RuntimeException("Transaction rollback simulation");
+        if (shouldThrowException) throw new RuntimeException("Transaction rollback simulation");
     }
 
 }

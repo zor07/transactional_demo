@@ -53,9 +53,12 @@ public class RequiredTransactionController {
             @PathVariable Long userId,
 
             @Parameter(description = "Сумма операции")
-            @RequestParam BigDecimal amount
+            @RequestParam BigDecimal amount,
+
+            @Parameter(description = "Генерировать ошибку для демонстрации отката")
+            @RequestParam(required = false, defaultValue = "false") boolean shouldThrowException
     ) {
-        requiredService.processTransaction(userId, amount);
+        requiredService.processTransaction(userId, amount, shouldThrowException);
     }
 }
 
