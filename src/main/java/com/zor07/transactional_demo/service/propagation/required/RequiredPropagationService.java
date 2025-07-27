@@ -29,10 +29,10 @@ public class RequiredPropagationService {
         user.setBalance(user.getBalance().add(amount));
         userRepository.save(user);
 
-        transactionLogRepository.save(new TransactionLog(user, amount));
-
         // Искусственно выбрасываем ошибку для демонстрации отката
         if (shouldThrowException) throw new RuntimeException("Transaction rollback simulation");
+
+        transactionLogRepository.save(new TransactionLog(user, amount));
     }
 
 }
