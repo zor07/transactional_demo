@@ -27,8 +27,6 @@ public class ProxyDemoTransactionController {
 
     private final ProxyDemoTransactionService proxyDemoTransactionService;
 
-
-
     public ProxyDemoTransactionController(ProxyDemoTransactionService proxyDemoTransactionService) {
         this.proxyDemoTransactionService = proxyDemoTransactionService;
     }
